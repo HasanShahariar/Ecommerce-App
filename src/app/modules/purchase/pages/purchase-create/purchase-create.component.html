@@ -1,0 +1,141 @@
+<div class="card">
+  <div class="card-header">
+    <p>Purchase Create</p>
+  </div>
+  <div class="card card-body">
+    <form [formGroup]="purchaseForm" class="form-validate">
+      <div class="row">
+
+        <div class="col-md-3">
+          <div class="form-group">
+            <label for="name">Entry Date</label>
+            <input type="date" formControlName="entryDate" id="LocationText" class="form-control disabled"
+              placeholder="LocationText" name="LocationText" />
+          </div>
+        </div>
+
+        <div class="col-md-3">
+          <div class="form-group">
+            <label for="name">Purchase No</label>
+            <input type="text" formControlName="code" id="PurchaseNo" class="form-control disabled"
+              placeholder="PurchaseNo" name="PurchaseNo" />
+          </div>
+        </div>
+
+        <div class="col-md-3">
+          <div class="form-group">
+            <label for="name">Purchase Date<span class="required-star">*</span></label>
+            <input type="date" formControlName="purchaseDate" class="form-control" required />
+            <small [hidden]="handleBlur(purchaseForm.controls.purchaseDate)" class="text-danger" translate>
+              Date is required
+            </small>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            <label for="name">Supplier</label>
+            <ng-select [items]="supplierList" [searchable]="true" bindLabel="name" bindValue="id"
+              formControlName="supplierId" (blur)="logValidationErrors()"
+              [ngClass]="{ 'is-invalid': formError.supplierId }"></ng-select>
+            <span class="invalid-feedback text-left">{{
+              formError.supplierId
+              }}</span>
+          </div>
+        </div>
+      </div>
+      <div class="row my-2">
+
+        <div class="col-md-4">
+          <div class="form-group">
+            <label for="name">Remarks</label>
+            <textarea type="text" rows="2" formControlName="remarks" class="form-control">
+                </textarea>
+          </div>
+        </div>
+      </div>
+      <div class="mt-4">
+        <label class="font-bold mb-2">Purchase Details</label>
+        <div formArrayName="purchaseDetail" class=" rounded py-6 product-detail">
+          <div *ngFor="let item of productPurchaseDetailArray; let i = index" class="pt-3">
+            <div [formGroupName]="i" class="row">
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label for="" *ngIf="i==0">Item</label>
+                  <ng-select class="last" [items]="ItemList" bindLabel="name" bindValue="id" placeholder="Item"
+                    formControlName="productId" (change)="addNewItem($event, i)" [clearable]="true" required>
+                  </ng-select>
+                  <small [hidden]="
+                        handleBlur(productPurchaseDetailArray[i].controls.productId)
+                      " class="text-danger" translate>
+                    Item is required
+                  </small>
+                </div>
+              </div>
+
+              <div class="col-md-2">
+                <div class="form-group">
+                  <label for="" *ngIf="i==0">Unit</label>
+                  <input type="text" class="form-control disabled" formControlName="unitName" min="0" />
+                </div>
+              </div>
+              <div class="col-md-1">
+                <div class="form-group">
+                  <label for="" *ngIf="i==0">Quantity</label>
+                  <input type="number" class="form-control" formControlName="quantity" (keyup)="calculateSummary()"
+                    min="0" />
+                </div>
+              </div>
+              <div class="col-md-2">
+                <div class="form-group">
+                  <label for="" *ngIf="i==0">Price</label>
+                  <input type="number" class="form-control disabled" formControlName="price"
+                    (keyup)="calculateSummary()" min="0" />
+                </div>
+              </div>
+
+              <div class="col-md-2">
+                <div class="form-group">
+                  <label for="" *ngIf="i==0">Total</label>
+                  <input type="number" class="form-control disabled" formControlName="totalAmount" min="0" />
+                </div>
+              </div>
+              <div class="col-md-2">
+                <label for="" *ngIf="i==0">Action</label>
+                <div class="form-group white-space-pre">
+                  <button [ngClass]="{
+                        hidden: i == 0 && productPurchaseDetailArray.length == 1
+                      }" type="button" class="btn-trash me-3" (click)="removeItem(i)">
+                    <i class="far fa-trash-alt"></i>
+                  </button>
+                  <button [ngClass]="{
+                        hidden: !(i == productPurchaseDetailArray.length - 1)
+                      }" type="button" class="btn-add" (click)="addItemDetail(i)">
+                    <i class="fa fa-plus"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+    <div class="mt-4">
+      <label class="font-bold">Summary</label>
+      <div class="border rounded  p-1">
+
+        <div class="d-flex flex-column align-items-end">
+          <div class="summary-row">
+            <label>Total Amount</label>
+            <div>:</div>
+            <div>{{ purchaseForm.value.totalAmount }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="mt-5 d-flex justify-content-end">
+      <a class="primary-btn me-3" (click)="onSubmit()">Submit</a>
+      <a class="btn btn-light" (click)="goToListPage()">Back</a>
+    </div>
+  </div>
+</div>
+<swal #noticeSwal [swalOptions]="swalOptions"> </swal>

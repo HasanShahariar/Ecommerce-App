@@ -1,0 +1,86 @@
+<section>
+  <div class="row flex-1">
+    <div class="col-md-3">
+      <h2>Member Attendance Report</h2>
+      <form [formGroup]="filterForm" class="search-form">
+        <div class="row">
+          <div class="form-group">
+            <label>From Date</label>
+            <input
+              class="form-control"
+              placeholder="yyyy-mm-dd"
+              name="BookedDate"
+              formControlName="fromDate"
+              ngbDatepicker
+              #d2="ngbDatepicker"
+              (click)="d2.toggle()"
+            />
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group">
+            <label>To Date</label>
+            <input
+              class="form-control"
+              placeholder="yyyy-mm-dd"
+              name="BookedDate1"
+              formControlName="toDate"
+              ngbDatepicker
+              #d3="ngbDatepicker"
+              (click)="d3.toggle()"
+            />
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="form_group">
+            <input
+              (change)="setStatusCriteria(true)"
+              type="radio"
+              name="status"
+              [checked]="IsAllMember"
+            />
+            <label>All Member</label>
+          </div>
+          <div class="form_group">
+            <input
+              (change)="setStatusCriteria(false)"
+              type="radio"
+              name="status"
+            />
+            <label>Select Member</label>
+          </div>
+        </div>
+        <div class="row" *ngIf="!IsAllMember">
+          <div class="form-group">
+            <label>Member No</label>
+            <input class="form-control" formControlName="memberNo" />
+          </div>
+        </div>
+        <div class="row mt-3 text-right">
+          <div class="col-12">
+            <button class="btn btn-primary mr-2" (click)="viewPdfReport()">
+              Submit
+            </button>
+            <button class="btn btn-danger" (click)="resetForm()">Reset</button>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="col-md-9">
+      <div *ngIf="url">
+        <div *ngIf="member.Id">
+          <h3 class="font-bold">Member Name: {{ member.FullName }}</h3>
+        </div>
+        <div *ngIf="!member.Id && !IsAllMember" class="font-bold text-danger">
+          No Available Member !
+        </div>
+        <ngx-doc-viewer
+          [url]="url"
+          viewer="url"
+          style="width: 100%; height: 100vh"
+        ></ngx-doc-viewer>
+      </div>
+    </div>
+  </div>
+</section>

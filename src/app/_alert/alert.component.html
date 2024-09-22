@@ -1,0 +1,77 @@
+﻿<div *ngFor="let alert of alerts">
+  <div *ngIf="!alert.modal" class="alert-height">
+    <div
+      id="myHeader"
+      class="alert-ribon p-alert rounded-0"
+      *ngIf="!alert.modal"
+      class="{{ cssClass(alert) }}"
+    >
+      <a class="close" (click)="removeAlert(alert)">&times;</a>
+
+      <div class="message-container">
+        <div *ngIf="alert.type === 0">
+          <div class="success mb-1">
+            <img src="assets/images/icons/check-2.png" alt="" />
+
+            <p class="ms-2">Success</p>
+          </div>
+        </div>
+        <div *ngIf="alert.type === 1">
+          <div class="error me-1 mb-1">
+            <h4 class="error-icon">!</h4>
+
+            <p class="ml-1">Error</p>
+          </div>
+        </div>
+        <div *ngIf="alert.type === 3">
+          <div class="warning">
+            <h4 class="warning-icon">!</h4>
+
+            <p class="ml-1">Warning</p>
+          </div>
+        </div>
+        <span class="message" [innerHTML]="alert.message"></span>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="alert.modal" class="alert-modal">
+    <div class="modal-container">
+      <a class="modal-close" (click)="removeAlert(alert)">&times;</a>
+      <div *ngIf="alert.type === 0">
+        <div class="success">
+          <img src="assets/images/icons/check-2.png" alt="" />
+
+          <p>Success</p>
+        </div>
+      </div>
+
+      <div *ngIf="alert.type === 1">
+        <div class="error">
+          <h4 class="error-icon">!</h4>
+
+          <p>Error</p>
+        </div>
+      </div>
+      <span class="message" [innerHTML]="alert.message"></span>
+      <button (click)="removeAlert(alert)" class="btn btn-primary">OKAY</button>
+    </div>
+  </div>
+</div>
+
+<!-- <script>
+  window.onscroll = function () {
+    myFunction();
+  };
+
+  var header = document.getElementById("myHeader");
+  var sticky = header.offsetTop;
+
+  function myFunction() {
+    if (window.pageYOffset > sticky) {
+      header.classList.add("sticky");
+    } else {
+      header.classList.remove("sticky");
+    }
+  }
+</script> -->

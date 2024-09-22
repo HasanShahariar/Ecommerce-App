@@ -1,0 +1,128 @@
+<section>
+  <div class="row flex-1">
+    <div class="col-md-3">
+      <div class="form=group">
+        <input
+          type="radio"
+          name="reportSelect"
+          id="one"
+          [checked]="detail"
+          (click)="setReportFilterSection(1)"
+        />
+        <label for="one">Event Ticket Report(Detail)</label>
+      </div>
+      <div class="form=group">
+        <input
+          type="radio"
+          name="reportSelect"
+          id="two"
+          (click)="setReportFilterSection(2)"
+        />
+        <label for="two">Event Ticket Report(Summary)</label>
+      </div>
+      <div *ngIf="!detail">
+        <h2>Event Ticket Report(Summary)</h2>
+        <form [formGroup]="filterForm" class="search-form">
+          <div class="row">
+            <div class="form-group">
+              <label>From Date</label>
+              <input
+                class="form-control"
+                placeholder="yyyy-mm-dd"
+                name="BookedDate"
+                formControlName="fromDate"
+                ngbDatepicker
+                #d2="ngbDatepicker"
+                (click)="d2.toggle()"
+              />
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group">
+              <label>To Date</label>
+              <input
+                class="form-control"
+                placeholder="yyyy-mm-dd"
+                name="BookedDate1"
+                formControlName="toDate"
+                ngbDatepicker
+                #d3="ngbDatepicker"
+                (click)="d3.toggle()"
+              />
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="form-group">
+              <label>Select Event</label>
+              <ng-select
+                [items]="eventList"
+                bindLabel="Title"
+                bindValue="Id"
+                formControlName="eventId"
+                (change)="setEventTicketCount($event)"
+              ></ng-select>
+            </div>
+          </div>
+          <div class="row mt-3 text-right">
+            <div class="col-12">
+              <button class="btn btn-primary mr-2" (click)="viewPdfReport()">
+                Submit
+              </button>
+              <button class="btn btn-danger" (click)="resetForm()">
+                Reset
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div *ngIf="detail">
+        <h2>Event Ticket Report(Detail)</h2>
+        <form [formGroup]="filterFormDetail" class="search-form">
+          <div class="row">
+            <div class="form-group">
+              <label>MembershipNo</label>
+              <input
+                class="form-control"
+                type="text"
+                formControlName="membershipNo"
+              />
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="form-group">
+              <label>Select Event</label>
+              <ng-select
+                [items]="eventList"
+                bindLabel="Title"
+                bindValue="Id"
+                formControlName="eventId"
+                (change)="setEventTicketCount($event)"
+              ></ng-select>
+            </div>
+          </div>
+          <div class="row mt-3 text-right">
+            <div class="col-12">
+              <button class="btn btn-primary mr-2" (click)="viewPdfReport()">
+                Submit
+              </button>
+              <button class="btn btn-danger" (click)="resetForm()">
+                Reset
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="col-md-9">
+      <div *ngIf="url">
+        <ngx-doc-viewer
+          [url]="url"
+          viewer="url"
+          style="width: 100%; height: 100vh"
+        ></ngx-doc-viewer>
+      </div>
+    </div>
+  </div>
+</section>

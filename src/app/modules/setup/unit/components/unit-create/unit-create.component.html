@@ -1,0 +1,49 @@
+<div class="modal-card-body">
+  <form [formGroup]="unitForm" class="searchForm" id="searchForm">
+    <div class="form-group row flex-column mb-3">
+      <div class="col-sm-12 col-md-5 col-lg-3">
+        <label
+          for="party"
+          class="control-label col-form-label float-left text-left font-weight-bolder white-space-pre"
+        >
+          Name
+          <sup class="text-danger">*</sup>
+        </label>
+      </div>
+      <div class="col-sm-12">
+        <input
+          id="name"
+          formControlName="name"
+          class="form-control float-left"
+          placeholder="Name"
+          (blur)="logValidationErrors()"
+          [ngClass]="{ 'is-invalid': formError.name }"
+        />
+        <span class="invalid-feedback text-left">{{ formError.name }}</span>
+      </div>
+    </div>
+  </form>
+</div>
+<div class="row">
+  <div class="col-12">
+    <div class="advance-filter-btn-list">
+      <button
+        type="submit"
+        class="primary-btn me-3"
+        (click)="onSubmit()"
+      >
+        Submit
+      </button>
+      <button
+        type="submit"
+        class="btn btn-light"
+        (click)="onCancel()"
+      >
+        Cancel
+      </button>
+    </div>
+  </div>
+</div>
+
+<swal #noticeSwal [swalOptions]="swalOptions"> </swal>
+

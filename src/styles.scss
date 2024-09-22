@@ -1,0 +1,311 @@
+/* You can add global styles to this file, and also import other style files */
+@import "./assets/sass/style.scss";
+// Replace above style with this css file to enable RTL styles
+// @import "./assets/css/style.rtl";
+@import './assets/sass/plugins.scss';
+// @import "./assets/css/style.rtl.css";
+@import "./assets/sass/style.angular.scss";
+@import "ngx-toastr/toastr";
+
+// Keenicons - High quality and pixel perfect font icons available in 3 styles, duotone, outline and solid for Metronic elements
+@import "./assets/plugins/keenicons/duotone/style.css";
+@import "./assets/plugins/keenicons/outline/style.css";
+@import "./assets/plugins/keenicons/solid/style.css";
+
+
+
+:root {
+    --primary-theme-color: #ac1f26;
+    --primary-text-color: #000000;
+  }
+
+th{
+    background: var(--primary-theme-color) !important ;
+    color: white !important;
+    font-weight: 500 !important;
+}
+
+label{
+  display: inline-block;
+  font-weight: 500;
+  color: #6a6a6a;
+  margin-bottom: 4px;
+}
+
+input::placeholder {
+  color: rgb(143, 143, 143) !important;
+  opacity: 1; 
+}
+.feature-list-header-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 43.56px;
+    margin-bottom: 10px;
+  }
+  .feature-section-wrapper {
+    // background: #f7f7f7;
+    // box-shadow: 0px 4px 20px rgba(160, 160, 160, 0.3);
+    // padding: 20px;
+  }
+  .search-input{
+    border: 1px solid #dfdfdf;
+  }
+
+  .search-input-icon{
+    position: absolute;
+    left: 10px;
+    color: var(--primary-theme-color);
+  }
+  .btn-filter{
+    background: var(--primary-theme-color);;
+    border: none;
+    padding: 0px 18px;
+    border-radius: 4px !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    color: white;
+    cursor: pointer;
+  }
+  .btn-filter i{
+    color: white;
+  }
+  tr {
+    border-bottom: 1px solid #e7e7e7 !important;
+}
+
+.primary-btn{
+  background: var(--primary-theme-color);
+  border: none;
+  padding: 9px 18px;
+  border-radius: 4px;
+  color: white;
+  font-weight: 500;
+  text-decoration: none;
+  cursor: pointer;
+}
+.discard-btn{
+  background: #f8f9fa;
+  border: none;
+  padding: 9px 18px;
+  border-radius: 4px;
+  font-weight: 500;
+}
+
+.page-link.active, .active > .page-link {
+  z-index: 3;
+  background-color: var(--primary-theme-color) !important;
+  border-color: var(--primary-theme-color) !important;
+}
+.nav-menu-item .menu-link {
+
+  padding: 0 !important;
+
+}
+
+.custom-select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background: url('data:image/svg+xml;utf8,<svg fill="none" stroke="%23333" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M6 9l6 6 6-6"/></svg>') no-repeat right 0.75rem center/8px 10px;
+  padding-right: 2rem;
+  position: relative;
+}
+
+.custom-select:after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 0.75rem;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-top: 4px solid #333;
+}
+
+.action-dropdown  {
+  position: relative;
+  display: inline-block;
+}
+
+.action-dropdown .dropdown-menu {
+  display: block;
+  position: absolute;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  z-index: 1000;
+  min-width: 120px;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  left: -30px;
+  transition: max-height 0.3s ease-out;
+}
+// .dropdown-menu.show {
+//   max-height: 200px; /* Adjust this value according to your content */
+// }
+
+
+
+.action-dropdown .dropdown-menu li {
+  margin: 0;
+}
+
+.action-dropdown .dropdown-menu .dropdown-item {
+  display: block;
+  padding: 8px 16px;
+  // color: #333;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.action-dropdown .dropdown-menu .dropdown-item:hover {
+  background-color: #f1f1f1;
+}
+.btn-dropdown-action{
+  background-color: transparent;
+  border: 1.5px solid var(--primary-theme-color);
+  padding: 4px 13px;
+  border-radius: 14px;
+}
+.btn-dropdown-action:hover{
+  background-color: var(--primary-theme-color);
+  color: #fff;
+}
+.btn-dropdown-action:hover .btn-dropdown-action.dropdown-toggle::after{
+  border-top: 5px solid #fff;
+}
+
+.btn-dropdown-action.dropdown-toggle::after {
+  content: '';
+  display: inline-block;
+  margin-left: 4px; /* Adjust margin as needed */
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 5px solid var(--bs-emphasis-color); /* Adjust color as needed */
+  transition: transform 0.3s; /* Smooth transition for rotation */
+}
+
+.btn-dropdown-action.dropdown-toggle:hover::after {
+  border-top-color: #fff; /* Change color to white on hover and when active */
+}
+
+.btn-dropdown-action.dropdown-toggle.active::after {
+  transform: rotate(180deg); /* Rotate the arrow */
+}
+.dropdown-menu.dropup {
+  transform: translateY(-100%); /* Move dropdown above the button */
+  margin-bottom: 4px; /* Adjust spacing as needed */
+}
+tbody tr {
+  cursor: pointer;
+}
+.modal-header{
+  padding: 9px 13px;
+}
+.hide{
+  display: none;
+}
+.search-input {
+  border: 1px solid #ced4da;
+  height: 38px;
+  border-radius: 6px;
+  color: #2f2f2f;
+  font-weight: 400;
+  padding-left: 15px;
+  font-size: 14px;
+}
+.filter-search-option .form-control.form-control-solid {
+  background-color: #f1f1f1;
+  border: 1px solid #e1e1e1;
+}
+
+.form-check-input{
+  width: 18px !important;
+  height: 18px !important;
+}
+
+
+
+
+
+.form-check-input:checked {
+  background-color: var(--primary-theme-color) !important;
+  border-color: var(--primary-theme-color) !important;
+}
+
+.form-check-input:focus {
+  border-color: none !important;
+  outline: 0;
+  box-shadow: none !important;
+}
+
+[data-kt-app-layout=dark-sidebar] .app-sidebar .menu .menu-item.hover:not(.here) > .menu-link:not(.disabled):not(.active):not(.here) .menu-title, [data-kt-app-layout=dark-sidebar] .app-sidebar .menu .menu-item:not(.here) .menu-link:hover:not(.disabled):not(.active):not(.here) .menu-title {
+  color: none !important;
+}
+
+.disabled{
+  pointer-events: none;
+  background-color: #e9e9e9 !important;
+}
+
+.ng-select .ng-select-container {
+  min-height: 31px !important;
+}
+.ng-select.ng-select-single .ng-select-container {
+  height: 31px !important;
+}
+.btn-trash{
+  border: none;
+  background-color: var(--primary-theme-color);
+  color: white;
+  padding: 5px 9px;
+  border-radius: 3px;
+}
+.btn-trash i{
+  color: white;
+}
+
+
+.btn-add{
+  border: none;
+  background-color: var(--primary-theme-color);
+  color: white;
+  padding: 5px 9px;
+  border-radius: 3px;
+}
+.btn-add i{
+  color: white;
+}
+.green-label{
+  background: #36dd22;
+  padding: 4px 13px;
+  font-weight: 500;
+  color: white;
+}
+.red-label{
+  background: #c21c1c;
+  padding: 4px 13px;
+  font-weight: 500;
+  color: white;
+}
+.advance-filter-btn-list{
+  display: flex;
+  justify-content: end;
+  gap: 10px;
+  padding: 15px 5px;
+  text-align: right;
+
+}
+
+// .form-check-input:checked[type=checkbox] {
+//   --bs-form-check-bg-image: url(data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 13 11' width='13' height='11' fill='none'%3e%3cpath d='M11.0426 1.02893C11.3258 0.695792 11.8254 0.655283 12.1585 0.938451C12.4917 1.22162 12.5322 1.72124 12.249 2.05437L5.51985 9.97104C5.23224 10.3094 4.72261 10.3451 4.3907 10.05L0.828197 6.88335C0.50141 6.59288 0.471975 6.09249 0.762452 5.7657C1.05293 5.43891 1.55332 5.40948 1.88011 5.69995L4.83765 8.32889L11.0426 1.02893Z' fill='%23ffffff'/%3e%3c/svg%3e);
+// }
+
+ 

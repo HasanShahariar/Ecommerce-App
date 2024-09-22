@@ -1,0 +1,291 @@
+<div class="row row-cols-1 row-cols-md-2 row-cols-xl-3 g-5 g-xl-9">
+  <ng-container *ngIf="roleList">
+    <ng-container *ngFor="let r of roleList">
+      <!--begin::Col-->
+      <div class="col-md-4">
+        <!--begin::Card-->
+        <div class="card card-flush h-md-100">
+          <!--begin::Card header-->
+          <div class="card-header">
+            <!--begin::Card title-->
+            <div class="card-title">
+              <h2>{{ r.Name | titlecase }}</h2>
+            </div>
+            <!--end::Card title-->
+          </div>
+          <!--end::Card header-->
+          <!--begin::Card body-->
+          <div class="card-body pt-1">
+            <!--begin::Users-->
+            <div class="fw-bold text-gray-600 mb-5">
+              Total users with this role: {{ r.Users.length }}
+            </div>
+            <!--end::Users-->
+            <!--begin::Permissions-->
+            <div class="d-flex flex-column text-gray-600">
+              <ng-container>
+                <div class="d-flex align-items-center py-2">
+                  <span class="bullet bg-primary me-3"></span>
+                </div>
+              </ng-container>
+
+              <div class="d-flex align-items-center py-2">
+                <span class="bullet bg-primary me-3"></span>
+                <em> </em>
+              </div>
+            </div>
+            <!--end::Permissions-->
+          </div>
+          <!--end::Card body-->
+          <!--begin::Card footer-->
+          <div class="card-footer flex-wrap pt-0">
+            <a
+              (click)="viewRole(r, viewModal)"
+              class="btn btn-light btn-active-primary my-1 me-2"
+              >View Role</a
+            >
+            <button
+              type="button"
+              class="btn btn-light btn-active-light-primary my-1"
+              (click)="viewPermission(r, viewPermissionModal)"
+            >
+              Edit Role
+            </button>
+          </div>
+          <!--end::Card footer-->
+        </div>
+        <!--end::Card-->
+      </div>
+      <!--end::Col-->
+    </ng-container>
+  </ng-container>
+  <!--begin::Add new card-->
+  <div class="ol-md-4">
+    <!--begin::Card-->
+    <div class="card h-md-100">
+      <!--begin::Card body-->
+      <div class="card-body d-flex flex-center">
+        <!--begin::Button-->
+        <button
+          type="button"
+          class="btn btn-clear d-flex flex-column flex-center"
+          data-action="create"
+        >
+          <!--begin::Illustration-->
+          <img
+            src="assets/media/illustrations/sketchy-1/4.png"
+            alt=""
+            class="mw-100 mh-150px mb-7"
+          />
+          <!--end::Illustration-->
+          <!--begin::Label-->
+          <div class="fw-bold fs-3 text-gray-600 text-hover-primary">
+            Add New Role
+          </div>
+          <!--end::Label-->
+        </button>
+        <!--begin::Button-->
+      </div>
+      <!--begin::Card body-->
+    </div>
+    <!--begin::Card-->
+  </div>
+  <!--begin::Add new card-->
+</div>
+
+<swal #noticeSwal [swalOptions]="swalOptions"> </swal>
+
+<ng-template #viewPermissionModal let-modal>
+  <form>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">
+        Role Details [{{ roleData?.Name }}]
+      </h4>
+      <button
+        type="button"
+        class="btn-close"
+        aria-label="Close"
+        (click)="modal.dismiss('Cross click')"
+      ></button>
+    </div>
+    <div class="modal-body">
+      <div
+        class="d-flex flex-column scroll-y me-n7 pe-7 mw-650px"
+        id="kt_modal_update_customer_scroll"
+        data-kt-scroll="true"
+        data-kt-scroll-activate="{default: false, lg: true}"
+        data-kt-scroll-max-height="auto"
+        data-kt-scroll-dependencies="#kt_modal_update_customer_header"
+        data-kt-scroll-wrappers="#kt_modal_update_customer_scroll"
+        data-kt-scroll-offset="300px"
+      >
+        <!--begin::User toggle-->
+        <div
+          class="fw-bold fs-3 rotate collapsible mb-7"
+          data-bs-toggle="collapse"
+          role="button"
+          (click)="collapse1.toggle()"
+          [attr.aria-expanded]="!isCollapsed1"
+          aria-controls="kt_modal_update_customer_user_info"
+        >
+          Permission List
+          <span class="ms-2 rotate-180">
+            <i
+              class="ki-duotone ki-down fs-3"
+              [ngClass]="{ 'ki-up': !isCollapsed1 }"
+            ></i>
+          </span>
+        </div>
+
+        <!--end::User toggle-->
+        <!--begin::User form-->
+        <div
+          class="collapse show"
+          #collapse1="ngbCollapse"
+          [(ngbCollapse)]="isCollapsed1"
+        >
+          <div class="fv-row mb-7">
+            <table class="">
+              <tr *ngFor="let x of roleData?.PermissionList">
+                <td>
+                  <div class="form-check form-check-inline">
+                    <input
+                      type="checkbox"
+                      class="form-check-input"
+                      checked="x.IsChecked"
+                    />
+                    <label> {{ x.Title }}</label>
+                  </div>
+                </td>
+                <td>
+                  <div style="display: inline-flex">
+                    <div *ngFor="let x1 of x.PermissionDetailVms">
+                      <div class="form-check form-check-inline">
+                        <input
+                          type="checkbox"
+                          class="form-check-input"
+                          checked="x1.IsChecked"
+                        />
+                        <label> {{ x1.Name }}</label>
+                      </div>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        <!--end::User form-->
+      </div>
+    </div>
+    <div class="modal-footer flex-center">
+      <!--begin::Button-->
+      <button
+        type="reset"
+        id="kt_modal_update_customer_cancel"
+        class="btn btn-light me-3"
+        (click)="modal.dismiss('cancel')"
+      >
+        Discard
+      </button>
+      <!--end::Button-->
+
+      <!--begin::Button-->
+      <button
+        type="submit"
+        id="kt_modal_update_customer_submit"
+        class="btn btn-primary"
+        [attr.data-kt-indicator]="isLoading ? 'on' : 'off'"
+      >
+        <span class="indicator-label"> Submit </span>
+        <span class="indicator-progress">
+          Please wait...
+          <span
+            class="spinner-border spinner-border-sm align-middle ms-2"
+          ></span>
+        </span>
+      </button>
+      <!--end::Button-->
+    </div>
+  </form>
+</ng-template>
+<ng-template #viewModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Role : {{ role.Name }}</h4>
+    <button
+      type="button"
+      class="btn-close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    ></button>
+  </div>
+  <div class="modal-body">
+    <div
+      class="d-flex flex-column scroll-y me-n7 pe-7 mw-650px"
+      id="kt_modal_update_customer_scroll"
+      data-kt-scroll="true"
+      data-kt-scroll-activate="{default: false, lg: true}"
+      data-kt-scroll-max-height="auto"
+      data-kt-scroll-dependencies="#kt_modal_update_customer_header"
+      data-kt-scroll-wrappers="#kt_modal_update_customer_scroll"
+      data-kt-scroll-offset="300px"
+    >
+      <!--begin::User toggle-->
+      <div
+        class="fw-bold fs-3 rotate collapsible mb-7"
+        data-bs-toggle="collapse"
+        role="button"
+        (click)="collapse1.toggle()"
+        [attr.aria-expanded]="!isCollapsed1"
+        aria-controls="kt_modal_update_customer_user_info"
+      >
+        User List
+        <span class="ms-2 rotate-180">
+          <i
+            class="ki-duotone ki-down fs-3"
+            [ngClass]="{ 'ki-up': !isCollapsed1 }"
+          ></i>
+        </span>
+      </div>
+      <table>
+        <tr>
+          <th>SL</th>
+          <th>Name</th>
+          <th>Username</th>
+        </tr>
+        <tr *ngFor="let x of role.Users; let i = index">
+          <td>{{ i + 1 }}</td>
+          <td>{{ x.Name }}</td>
+          <td>{{ x.Username }}</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+  <div class="modal-footer flex-center">
+    <!--begin::Button-->
+    <button
+      type="reset"
+      id="kt_modal_update_customer_cancel"
+      class="btn btn-light me-3"
+      (click)="modal.dismiss('cancel')"
+    >
+      Discard
+    </button>
+    <!--end::Button-->
+
+    <!--begin::Button-->
+    <button
+      type="submit"
+      id="kt_modal_update_customer_submit"
+      class="btn btn-primary"
+      [attr.data-kt-indicator]="isLoading ? 'on' : 'off'"
+    >
+      <span class="indicator-label"> Submit </span>
+      <span class="indicator-progress">
+        Please wait...
+        <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+      </span>
+    </button>
+    <!--end::Button-->
+  </div>
+</ng-template>
