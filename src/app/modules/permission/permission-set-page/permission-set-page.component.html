@@ -1,0 +1,274 @@
+<div class="card">
+  <div class="card-header">
+    <p>Permission Manage</p>
+  </div>
+
+      <div [ngClass]="{ permissionModal: isReadonly }" class="card">
+        <div class="card-body">
+          <form
+            [formGroup]="permissionForm"
+            id="permissionForm"
+            class="bundle-create-form new-announcement-form"
+          >
+            <div
+              *ngIf="!(classroomPackageId > 0) && !isReadonly"
+              class="form-group"
+            >
+              <label>Role</label>
+              <ng-select
+                formControlName="roleName"
+                id="roleName"
+                #select
+                [items]="roles"
+                [searchable]="true"
+                bindLabel="name"
+                bindValue="name"
+                (change)="getPermissionByRole($event)"
+                (blur)="logValidationErrors()"
+                [ngClass]="{ 'is-invalid': formError.roleName }"
+              >
+              </ng-select>
+              <span class="invalid-feedback text-left">{{
+                formError.roleName
+              }}</span>
+            </div>
+            <!-- <div class="form-group">
+              <label>সিলেক্ট অনুমোদন অপশন</label>
+              <ng-select
+                formControlName="permissionType"
+                id="permissionType"
+                #select
+                [items]="permissionTypes"
+                [searchable]="true"
+                bindLabel="name"
+                bindValue="id"
+                (blur)="logValidationErrors()"
+                (change)="getPermissionOnChangeType($event)"
+                [ngClass]="{ 'is-invalid': formError.permissionType }"
+              >
+              </ng-select>
+              <span class="invalid-feedback text-left">{{
+                formError.permissionType
+              }}</span>
+            </div> -->
+
+            <div
+              *ngIf="permissionForm.value.permissionType === 1"
+              class="card rounded-xl mt-3 mb-4"
+            >
+              <div class="card-header border-0 pt-4 text-left bg-theme">
+                <h5 class="text-white">Menu Permission</h5>
+              </div>
+              <div class="card-body ml-12">
+                <ng-container
+                  *ngTemplateOutlet="recursiveListTmpl; context: { list: list }"
+                ></ng-container>
+
+                <ng-template #recursiveListTmpl let-list="list">
+                  <div
+                    style="margin-left: 40px"
+                    *ngFor="let item of list; let i = index"
+                  >
+                    <label
+                      [ngClass]="{ readOnly: isReadonly }"
+                      class="input-checkbox input-checkbox-all tt"
+                    >
+                      <input
+                        type="checkbox"
+                        class="checkbox"
+                        [checked]="checked[item.id]"
+                        id="{{ item.id }}"
+                        name="{{ item.id }}"
+                        (change)="selectMenu(item, $event)"
+                      />
+                      <span class="checkmark"></span>
+                    </label>
+
+                    <label
+                      [ngClass]="{ readOnly: isReadonly }"
+                      style="margin-left: 10px"
+                      for="{{ item.id }}"
+                    >
+                      {{ item.name }}</label
+                    >
+
+                    <br />
+
+                    <span *ngIf="item.submenu">
+                      <ng-container
+                        *ngTemplateOutlet="
+                          recursiveListTmpl;
+                          context: { list: item.submenu }
+                        "
+                      ></ng-container>
+                    </span>
+                  </div>
+                </ng-template>
+              </div>
+            </div>
+            <div
+              *ngIf="permissionForm.value.permissionType === 2"
+              class="card rounded-xl mt-3 mb-4"
+            >
+              <div class="card-header border-0 pt-4 text-left bg-theme">
+                <h5 class="text-white">Features Permission</h5>
+              </div>
+              <div class="card-body ml-12">
+                <!-- <ng-container
+                  *ngTemplateOutlet="recursiveListTmpl; context: { list: list }"
+                ></ng-container> -->
+
+                <!-- <ng-template #recursiveListTmpl let-list="list"> -->
+                <div *ngFor="let item of permissionList; let i = index">
+                  <!-- <input
+                    type="checkbox"
+                    [checked]="checked[item.id]"
+                    id="{{ item.id }}"
+                    name="{{ item.id }}"
+                  /> -->
+                  <label
+                    [ngClass]="{ readOnly: isReadonly }"
+                    style="margin-left: 10px"
+                    for="{{ item.id }}"
+                  >
+                    {{ item.name }}</label
+                  >
+
+                  <br />
+                  <div
+                    style="margin-left: 40px"
+                    *ngFor="
+                      let feature of item.permissionFeatures;
+                      let i = index
+                    "
+                  >
+                    <label
+                      [ngClass]="{ readOnly: isReadonly }"
+                      class="input-checkbox input-checkbox-all"
+                    >
+                      <input
+                        type="checkbox"
+                        class="checkbox"
+                        [checked]="featureChecked[feature.id]"
+                        id="{{ feature.code }}"
+                        name="{{ feature.id }}"
+                        (change)="selectFeatureAllPermission(feature, $event)"
+                      />
+                      <span class="checkmark"></span>
+                    </label>
+                    <label
+                      [ngClass]="{ readOnly: isReadonly }"
+                      style="margin-left: 10px"
+                      for="{{ feature.code }}"
+                    >
+                      {{ feature.name }}</label
+                    >
+                    <!-- [ngClass]="{ rotate: question.collapse }" -->
+                    <a
+                      *ngIf="collapsToggler"
+                      class="collaps-btn"
+                      (click)="collapse(feature.id)"
+                      ><i class="las la-angle-up"></i
+                    ></a>
+                    <a
+                      *ngIf="!collapsToggler"
+                      class="collaps-btn"
+                      (click)="collapse2(feature.id)"
+                      ><i class="las la-angle-down"></i
+                    ></a>
+
+                    <br />
+
+                    <div
+                      class="disc-{{ feature.id }}"
+                      style="margin-left: 40px"
+                      *ngFor="
+                        let permission of feature.permissions;
+                        let i = index
+                      "
+                    >
+                      <div>
+                        <label
+                          [ngClass]="{ readOnly: isReadonly }"
+                          class="input-checkbox input-checkbox-all"
+                        >
+                          <input
+                            type="checkbox"
+                            class="checkbox"
+                            [id]="permission.code"
+                            [checked]="permissionChecked[permission.id]"
+                            name="{{ permission.id }}"
+                            (change)="
+                              selectPermission(
+                                permission,
+                                $event,
+                                permission.id
+                              )
+                            "
+                          />
+                          <span class="checkmark"></span>
+                        </label>
+                        <label
+                          [ngClass]="{ readOnly: isReadonly }"
+                          style="margin-left: 10px"
+                          for="{{ permission.code }}"
+                        >
+                          {{ permission.name }}</label
+                        >
+                        <span
+                          class="limit"
+                          [ngClass]="{ hidden: client.id !== 1 }"
+                          *ngIf="permission.hasLimit"
+                          >, Limit:
+                        </span>
+                        <input
+                          class="limit-input"
+                          *ngIf="permission.hasLimit"
+                          (keyup)="changePermissionLimit($event, permission.id)"
+                          [id]="permission.id"
+                          type="text"
+                          [ngClass]="{
+                            readOnly: isReadonly,
+                            hidden: client.id !== 1 && !isReadonly
+                          }"
+                        />
+                        <br />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- </ng-template> -->
+              </div>
+            </div>
+
+            <!-- <button
+              *ngIf="!isReadonly"
+              (click)="updatePermission()"
+              class="button btn-green btn-full"
+              type="submit"
+              [ngClass]="{ readOnly: isReadonly }"
+            >
+              Update
+            </button> -->
+
+            <div class="d-flex justify-content-end">
+              <button
+                type="button"
+                class="primary-btn"
+                *ngIf="!isReadonly"
+                (click)="updatePermission()"
+              >
+                Update
+              </button>
+              <!-- <button type="button" class="btn primary-btn">Next</button>
+              <button type="button" class="btn primary-btn">
+                Save And Next
+              </button> -->
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+
+  <swal #noticeSwal [swalOptions]="swalOptions"> </swal>

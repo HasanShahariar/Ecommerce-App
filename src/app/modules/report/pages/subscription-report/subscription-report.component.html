@@ -1,0 +1,392 @@
+<section>
+  <div class="row flex-1">
+    <div class="col-md-3">
+      <div class="form=group">
+        <input
+          type="radio"
+          name="reportSelect"
+          id="one"
+          (click)="setReportFilterSection(1)"
+        />
+        <label for="one">1. Subscription Payment Detail</label>
+      </div>
+      <div class="form=group">
+        <input
+          type="radio"
+          name="reportSelect"
+          id="two"
+          (click)="setReportFilterSection(2)"
+        />
+        <label for="two">2. Subscription Payment Summary</label>
+      </div>
+
+      <div class="form=group">
+        <input
+          type="radio"
+          name="reportSelect"
+          id="three"
+          (click)="setReportFilterSection(3)"
+        />
+        <label for="three">3. Subscription Due Detail</label>
+      </div>
+      <div class="form=group">
+        <input
+          type="radio"
+          name="reportSelect"
+          id="four"
+          (click)="setReportFilterSection(4)"
+        />
+        <label for="four">4. Subscription Due Summary</label>
+      </div>
+      <div class="form=group">
+        <input
+          type="radio"
+          name="reportSelect"
+          id="five"
+          (click)="setReportFilterSection(5)"
+        />
+        <label for="five">5. User Wise Subscription Collection</label>
+      </div>
+      <div class="form=group">
+        <input
+          type="radio"
+          name="reportSelect"
+          id="six"
+          (click)="setReportFilterSection(6)"
+        />
+        <label for="six">6. User Wise Subscription Collection Details</label>
+      </div>
+      <div *ngIf="sectionNo === 1">
+        <h3>Subscription Payment Report(Detail)</h3>
+        <form [formGroup]="filterForm1" class="search-form">
+          <div class="row">
+            <div class="form-group">
+              <label>From Date</label>
+              <input
+                class="form-control"
+                placeholder="FromDate"
+                name="fromDate"
+                formControlName="fromDate"
+                ngbDatepicker
+                #d2="ngbDatepicker"
+                (click)="d2.toggle()"
+              />
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group">
+              <label>To Date</label>
+              <input
+                class="form-control"
+                formControlName="toDate"
+                ngbDatepicker
+                #d3="ngbDatepicker"
+                (click)="d3.toggle()"
+              />
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group">
+              <label>Membership No</label>
+              <input
+                class="form-control"
+                placeholder="Membership No"
+                name="paidTill"
+                formControlName="membershipNo"
+              />
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group">
+              <label>Year</label>
+              <ng-select
+                [items]="yearList"
+                bindLabel="Title"
+                bindValue="Id"
+                formControlName="year"
+              ></ng-select>
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group">
+              <label>Quarter</label>
+              <ng-select
+                [items]="quarterList"
+                bindLabel="Title"
+                bindValue="Id"
+                formControlName="quarter"
+                [multiple]="true"
+              ></ng-select>
+            </div>
+          </div>
+          <div class="row mt-3 text-right">
+            <div class="col-12">
+              <button class="btn btn-primary mr-2" (click)="viewPdfReport()">
+                Submit
+              </button>
+              <button class="btn btn-danger" (click)="resetForm()">
+                Reset
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div *ngIf="sectionNo === 2">
+        <h3>Subscription Payment Report(Summary)</h3>
+        <form [formGroup]="filterForm2" class="search-form">
+          <div class="row">
+            <div class="form-group">
+              <label>From Date</label>
+              <input
+                class="form-control"
+                placeholder="FromDate"
+                name="fromDate"
+                formControlName="fromDate"
+                ngbDatepicker
+                #d2="ngbDatepicker"
+                (click)="d2.toggle()"
+              />
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group">
+              <label>To Date</label>
+              <input
+                class="form-control"
+                formControlName="toDate"
+                ngbDatepicker
+                #d3="ngbDatepicker"
+                (click)="d3.toggle()"
+              />
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group">
+              <label>Membership No</label>
+              <input
+                class="form-control"
+                placeholder="Membership No"
+                name="paidTill"
+                formControlName="membershipNo"
+              />
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group">
+              <label>Year</label>
+              <ng-select
+                [items]="yearList"
+                bindLabel="Title"
+                bindValue="Id"
+                formControlName="year"
+              ></ng-select>
+            </div>
+          </div>
+
+          <div class="row mt-3 text-right">
+            <div class="col-12">
+              <button class="btn btn-primary mr-2" (click)="viewPdfReport()">
+                Submit
+              </button>
+              <button class="btn btn-danger" (click)="resetForm()">
+                Reset
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div *ngIf="sectionNo === 3">
+        <h3>Subscription Due Report(Detail)</h3>
+        <form [formGroup]="filterForm3" class="search-form">
+          <div class="row">
+            <div class="form-group">
+              <label>Membership No</label>
+              <input
+                class="form-control"
+                placeholder="Membership No"
+                name="paidTill"
+                formControlName="membershipNo"
+              />
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group">
+              <label>Year</label>
+              <ng-select
+                [items]="yearList"
+                bindLabel="Title"
+                bindValue="Id"
+                formControlName="year"
+              ></ng-select>
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group">
+              <label>Quarter</label>
+              <ng-select
+                [items]="quarterList"
+                bindLabel="Title"
+                bindValue="Id"
+                formControlName="quarter"
+                [multiple]="true"
+              ></ng-select>
+            </div>
+          </div>
+          <div class="row mt-3 text-right">
+            <div class="col-12">
+              <button class="btn btn-primary mr-2" (click)="viewPdfReport()">
+                Submit
+              </button>
+              <button class="btn btn-danger" (click)="resetForm()">
+                Reset
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div *ngIf="sectionNo === 4">
+        <h3>Subscription Due Report(Summary)</h3>
+        <form [formGroup]="filterForm4" class="search-form">
+          <div class="row">
+            <div class="form-group">
+              <label>Membership No</label>
+              <input
+                class="form-control"
+                placeholder="Membership No"
+                name="paidTill"
+                formControlName="membershipNo"
+              />
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group">
+              <label>Year</label>
+              <ng-select
+                [items]="yearList"
+                bindLabel="Title"
+                bindValue="Id"
+                formControlName="year"
+              ></ng-select>
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group">
+              <label>Quarter</label>
+              <ng-select
+                [items]="quarterList"
+                bindLabel="Title"
+                bindValue="Id"
+                formControlName="quarter"
+                [multiple]="true"
+              ></ng-select>
+            </div>
+          </div>
+          <div class="row mt-3 text-right">
+            <div class="col-12">
+              <button class="btn btn-primary mr-2" (click)="viewPdfReport()">
+                Submit
+              </button>
+              <button class="btn btn-danger" (click)="resetForm()">
+                Reset
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div *ngIf="sectionNo === 5">
+        <h3>User Wise Subscription Collection</h3>
+        <form [formGroup]="filterForm5" class="search-form">
+          <div class="row">
+            <div class="form-group">
+              <label>From Date</label>
+              <input
+                class="form-control"
+                placeholder="FromDate"
+                name="fromDate"
+                formControlName="fromDate"
+                ngbDatepicker
+                #d2="ngbDatepicker"
+                (click)="d2.toggle()"
+              />
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group">
+              <label>To Date</label>
+              <input
+                class="form-control"
+                formControlName="toDate"
+                ngbDatepicker
+                #d3="ngbDatepicker"
+                (click)="d3.toggle()"
+              />
+            </div>
+          </div>
+
+          <div class="row mt-3 text-right">
+            <div class="col-12">
+              <button class="btn btn-primary mr-2" (click)="viewPdfReport()">
+                Submit
+              </button>
+              <button class="btn btn-danger" (click)="resetForm()">
+                Reset
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div *ngIf="sectionNo === 6">
+        <h4>User Wise Subscription Collection(Detail)</h4>
+        <form [formGroup]="filterForm6" class="search-form">
+          <div class="row">
+            <div class="form-group">
+              <label>From Date</label>
+              <input
+                class="form-control"
+                placeholder="FromDate"
+                name="fromDate"
+                formControlName="fromDate"
+                ngbDatepicker
+                #d2="ngbDatepicker"
+                (click)="d2.toggle()"
+              />
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group">
+              <label>To Date</label>
+              <input
+                class="form-control"
+                formControlName="toDate"
+                ngbDatepicker
+                #d3="ngbDatepicker"
+                (click)="d3.toggle()"
+              />
+            </div>
+          </div>
+
+          <div class="row mt-3 text-right">
+            <div class="col-12">
+              <button class="btn btn-primary mr-2" (click)="viewPdfReport()">
+                Submit
+              </button>
+              <button class="btn btn-danger" (click)="resetForm()">
+                Reset
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div class="col-md-9">
+      <div *ngIf="url">
+        <ngx-doc-viewer
+          [url]="url"
+          viewer="url"
+          style="width: 100%; height: 100vh"
+        ></ngx-doc-viewer>
+      </div>
+    </div>
+  </div>
+</section>

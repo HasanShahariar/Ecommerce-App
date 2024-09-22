@@ -1,0 +1,227 @@
+.message-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.success {
+  display: flex;
+  align-items: center;
+}
+
+.success p {
+  font-size: 20px;
+  font-family: "BalooDa2-SemiBold";
+  color: #fff;
+}
+
+.error {
+  display: flex;
+  align-items: center;
+}
+
+.error p {
+  font-size: 20px;
+  font-family: "BalooDa2-SemiBold";
+  color: #ffffff;
+}
+
+.warning {
+  display: flex;
+  align-items: center;
+}
+
+.warning p {
+  font-size: 20px;
+  font-family: "BalooDa2-SemiBold";
+  color: black;
+}
+
+.success img {
+  height: 40px;
+  width: 40px;
+  padding: 10px;
+  padding-top: 12px;
+  padding-left: 12px;
+  background-color: #fff;
+  border-radius: 50%;
+  margin-right: 3px;
+  -webkit-box-shadow: -3px 0px 9px 0px rgb(171 171 171 / 75%);
+  box-shadow: -3px 0px 9px 0px rgb(171 171 171 / 75%);
+}
+
+.close {
+  color: #000000;
+  background-color: #ffffff;
+  height: 25px;
+  width: 25px;
+  border-radius: 50%;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  align-self: center;
+  display: flex;
+  margin-top: 7px;
+  cursor: pointer;
+}
+
+p {
+  margin: 0px;
+}
+
+.message {
+  display: flex;
+  align-items: center;
+  margin-left: 10px;
+  font-size: 16px;
+  font-family: "BalooDa2-Regular";
+}
+
+.error-icon {
+  height: 40px;
+  width: 40px;
+  background-color: #fff;
+  border-radius: 50%;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  font-size: 35px;
+  font-family: "BalooDa2-ExtraBold";
+  -webkit-box-shadow: -3px 0px 9px 0px rgb(171 171 171 / 75%);
+  box-shadow: -3px 0px 9px 0px rgb(171 171 171 / 75%);
+  color: red;
+  margin-right: 10px;
+  margin-bottom: 0px !important;
+}
+.warning-icon{
+  height: 40px;
+  width: 40px;
+  background-color: #fff;
+  border-radius: 50%;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  font-size: 35px;
+  font-family: "BalooDa2-ExtraBold";
+  -webkit-box-shadow: -3px 0px 9px 0px rgb(171 171 171 / 75%);
+  box-shadow: -3px 0px 9px 0px rgb(171 171 171 / 75%);
+  color: yellow;
+  margin-right: 10px;
+  margin-bottom: 0px !important;
+}
+
+.modal {
+  position: absolute;
+  top: 50%;
+  z-index: 100;
+}
+
+.alert-modal {
+  position: absolute;
+  top: 25%;
+  z-index: 100;
+  left: 40%;
+  -webkit-box-shadow: -3px 0px 9px 0px rgb(171 171 171 / 75%);
+  box-shadow: -3px 0px 9px 0px rgb(171 171 171 / 75%);
+}
+
+.modal-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 50px;
+  padding-top: 70px;
+  padding-bottom: 70px;
+  width: 400px;
+  position: fixed;
+  background-color: #fff;
+  -webkit-box-shadow: -3px 0px 9px 0px rgb(171 171 171 / 75%);
+  box-shadow: -3px 0px 9px 0px rgb(171 171 171 / 75%);
+}
+
+.modal-container .success {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.modal-container .message {
+  margin: 10px 0px;
+}
+
+.modal-container .success img {
+  height: 40px;
+  width: 40px;
+  margin-bottom: 12px;
+}
+
+.modal-close {
+  color: #fff;
+  background-color: #999999;
+  height: 25px;
+  width: 25px;
+  font-size: 24px;
+  border-radius: 50%;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  align-self: center;
+  display: flex;
+  align-self: center;
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  padding-top: 1px;
+  cursor: pointer;
+}
+
+.alert-success {
+  /* color: #155724; */
+  background-color: none !important;
+  border-color: none !important;
+}
+
+.btn-primary {
+  padding-right: 40px;
+  padding-left: 40px;
+  margin-top: 5px;
+  border: none;
+  background-color: green;
+}
+
+.alert-ribon {
+  position: fixed;
+  width: 100%;
+  z-index: 1000;
+  /* padding-top: 16px; */
+  top: 0px;
+  -webkit-box-shadow: -3px 0px 9px 0px rgb(171 171 171 / 75%);
+  box-shadow: -3px 0px 9px 0px rgb(171 171 171 / 75%);
+}
+
+.sticky {
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+
+.sticky + .content {
+  padding-top: 102px;
+}
+.alert {
+  padding: 0;
+}
+.p-alert {
+  padding: 12px 20px 7px 0px;
+}
+.alert-height {
+  height: 61px;
+}
+@media (max-width: 575.98px) {
+  .alert-height {
+    height: 78px;
+  }
+}
