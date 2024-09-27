@@ -9,7 +9,6 @@ import { SweetAlertOptions } from 'sweetalert2';
 import { AlertTypeService } from 'src/app/shared/services/alert-type.service';
 import { SwalComponent } from '@sweetalert2/ngx-sweetalert2';
 import { Location } from "@angular/common";
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-product-create',
@@ -34,7 +33,6 @@ export class ProductCreateComponent implements OnInit {
     private alertType: AlertTypeService,
     private cdr: ChangeDetectorRef,
     private _location: Location,
-    private router: Router,
   ) { }
 
   ngOnInit() {
@@ -135,9 +133,8 @@ export class ProductCreateComponent implements OnInit {
         (data) => {
           console.log(data);
           // this.alertService.success('Successfully Updated');
-          this.router.navigate(["setup/product/index"]);
           this.showAlert(this.alertType.createSuccessAlert);
-          
+          this.successFullCreateOrUpdate.emit(data);
         },
         (err) => {
           console.log(err);
@@ -152,7 +149,7 @@ export class ProductCreateComponent implements OnInit {
 
           // this.alertService.success('Successfully Updated');
           this.showAlert(this.alertType.createSuccessAlert);
-         this.router.navigate(["setup/product/index"]);
+          this.successFullCreateOrUpdate.emit(data);
           this.service.onProductCreated.next(data);
         },
         (err) => {
